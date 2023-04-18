@@ -1,0 +1,68 @@
+﻿@page
+@using XTLAB
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    ViewData["titlemessage"] = "San pham moi";
+    ViewData["content"] = "Ban dang xem cac san pham moi";
+}
+
+<form method="post">
+    <label>Nhap ten cua ban</label>
+    <input name="username" type="text"/>
+    <input type="submit" value="Gui">
+</form>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+@await Component.InvokeAsync("ProductBox", false)
+@await Html.PartialAsync("_Message")
+
+@{
+    var product1 = new Product() {Name = "Iphone X", Description = "Dien thoai Iphone cua Apple...", Price = 1000};
+    var product2 = new Product() {Name = "Samsum Abc", Description = "Dien thoai cua Samsung...", Price = 500};
+    var product3 = new Product() {Name = "Nokia XYZ", Description = "Dien thoai cua Nokia...", Price = 900};
+}
+
+<div class="row bg-info">
+    <div class="col">
+        <partial name="_ProductItem" model ="product1"/>
+    </div>
+    <div class="col">
+        @await Html.PartialAsync("_ProductItem", product2)
+    </div>
+    <div class="col">
+        @{
+        await Html.RenderPartialAsync("_ProductItem", product3);
+        } 
+    </div>
+</div>
+
+<div class="row bg-warning">
+    @{
+        var products = new List<Product>(){
+            new Product(){Name = "SP 1", Description = "Mo ta cho SP 1", Price = 122},
+            new Product(){Name = "SP 2", Description = "Mo ta cho SP 2", Price = 122},
+            new Product(){Name = "SP 3", Description = "Mo ta cho SP 3", Price = 122},
+            new Product(){Name = "SP 4", Description = "Mo ta cho SP 4", Price = 122},
+
+            
+        };
+
+        foreach (var product in products){
+            <div class="col">
+                <partial name="_ProductItem" model ="product"/>
+            </div>
+        }
+    }
+</div>
+ 
+
+
+
+
+
+

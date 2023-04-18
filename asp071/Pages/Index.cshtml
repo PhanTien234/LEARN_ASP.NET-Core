@@ -1,0 +1,72 @@
+﻿@* -@bieuthuc @(bieuthuc) :  -> HTML (encode) <  -> &lt; > -> &gt; 
+    -Html.Raw(string). Nếu dùng biểu thức này thì các lệnh bên trong sẽ không được encode
+    -@{
+        write code C#
+        Tự động xuất html khi ta mở thẻ htm;
+        chungs ta có thể khai báo những phương thức, thì phương thức đó là phương thức cục bộ
+        -<text sẽ xuất nôi dung đó ra>
+        - @: sau đó là các biểu thức muốn tách ra
+    }
+    - nếu trong html mà muốn sử dụng cấu trúc lệnh điều khiển thì chúng ta sử dụng: @if, @for, @foreach, @switch..
+    - nếu chúng ta muốn đưa vào nhuwngxn lớp phát sinh những method hoặc properpty thì chúng ta sử dụng:
+    @funtions{
+        Members : Method, Field, Property
+    }
+    -@page "url": chỉ thị này để thiết lập đây là trang razor page nó có thể nhận tham số là thiết lập url chúng ta truy cập
+    -@model Model: để nó thiết lập thuộc tính của Trang Razor
+    -@namespace
+    -@using tennamespacecannap: Trong trường hợp chungs ta muốn nạp một namespace
+*@
+
+
+@page "/trang chu"
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    var xinchao = "<div class='alert alert-danger'>Xin chao cac ban </div>";
+}
+
+<h1 class="diplay-4 text-danger">Syntax Razor -@this.Title</h1>
+<p>@Model.Abc</p>
+<ul>
+    <li>@(5+6)</li>
+    <li>PI = @Math.PI, Sin(PI/4) la @Math.Sin(Math.PI/4)</li>
+    <li>@("<h1>Xin Chao Cac Ban</h1>")</li>
+    <li>@xinchao</li>
+    <li>@Html.Raw("<h1>Xin Chao Cac Ban</h1>")</li>
+    <li>@Html.Raw(xinchao)</li>
+</ul>
+<hr>
+@{
+    var loichao = "Xin chao";
+    var Age = 20;
+
+    void XinChao(string name){
+        var mgs = loichao + " " + name;
+        <p>@mgs</p>
+    }
+}
+
+@if (Age >=18){
+    <p>Ban @Age tuoi, duoc truy cap</p>
+}else{
+    <p>Ban @Age tuoi, ko duoc truy cap</p>
+}
+
+@functions{
+    string Title{set;get;} = "XUANTHULAB";
+}
+
+<p>@loichao</p>
+
+@{
+    XinChao("PhanMinhTien");
+    string[] cacsanpham = new string[]{"Iphone", "Nokia 1021","Samsung XX"};
+    foreach(var name in cacsanpham){
+        <text>[@name]</text>
+    }
+    <br>
+        foreach(var name in cacsanpham){
+        @: [@name]
+    }
+}
